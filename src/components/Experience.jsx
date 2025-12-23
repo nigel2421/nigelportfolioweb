@@ -1,58 +1,75 @@
-
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Briefcase } from 'lucide-react';
 
-const experienceData = [
+const experiences = [
     {
-        role: "Web Developer",
-        company: "Ela-Creatives",
-        date: "July - 2024",
-        description: "Designed and developed the website for Ela-Creatives."
+        company: "Soil Merchants",
+        role: "Digital Operations Associate",
+        period: "June 2025 - Present",
+        description: "Driving digital transformation and optimizing operational efficiency."
     },
     {
-        role: "Web Developer",
-        company: "Wakala Real Estate",
-        date: "June - 2024",
-        description: "Designed and developed the website for Wakala Real Estate."
-    },
-    {
+        company: "Darasa Impact Ltd",
         role: "Project Manager",
-        company: "AnyDuka Commerce Limited",
-        date: "January - 2024",
-        description: "Responsible for overseeing the entire project lifecycle, from planning and scope definition to execution, monitoring, and evaluation."
+        period: "Jan 2020 - May 2025",
+        description: "Led diverse projects from conception to delivery, ensuring alignment with strategic goals."
     },
     {
-        role: "Archive Data Handler",
         company: "Book Bunk",
-        date: "January - November 2023",
-        description: "Managed Book Bunk's archival data, uploaded data to their website, and assisted with event logistics."
-    },
+        role: "Data Handler",
+        period: "Jan 2023 - Nov 2023",
+        description: "Managed data integrity and analysis to support informed decision-making processes."
+    }
 ];
 
 const Experience = () => {
-  return (
-    <section id="experience" className="py-20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">Experience</h2>
-        <div className="relative">
-          <div className="border-l-2 border-blue-600 absolute h-full top-0 left-1/2 -translate-x-1/2"></div>
-          {experienceData.map((item, index) => (
-            <div key={index} className={`mb-8 flex justify-between items-center w-full ${index % 2 === 0 ? 'flex-row-reverse' : ''}`}>
-              <div className="w-5/12"></div>
-              <div className="z-10 flex items-center justify-center w-12 h-12 bg-blue-600 rounded-full">
-                <div className="w-4 h-4 bg-white rounded-full"></div>
-              </div>
-              <div className="w-5/12 bg-gray-800 rounded-lg p-6">
-                <h3 className="text-xl font-bold">{item.role}</h3>
-                <p className="text-blue-400">{item.company}</p>
-                <p className="text-gray-500 mb-2">{item.date}</p>
-                <p>{item.description}</p>
-              </div>
+    return (
+        <section id="experience" className="py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+            <div className="container mx-auto px-4">
+                <h2 className="text-4xl font-bold text-center mb-16 text-gray-900 dark:text-white">Experience</h2>
+
+                <div className="relative max-w-3xl mx-auto">
+                    {/* Vertical Line */}
+                    <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-blue-200 dark:bg-gray-700"></div>
+
+                    {experiences.map((exp, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: false }}
+                            transition={{ duration: 0.5, delay: index * 0.2 }}
+                            className={`relative flex flex-col md:flex-row items-center mb-12 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''
+                                }`}
+                        >
+                            {/* Dot on the line */}
+                            <div className="absolute left-[-4px] md:left-1/2 transform md:-translate-x-1/2 w-3 h-3 bg-blue-600 rounded-full border-4 border-white dark:border-gray-900 z-10"></div>
+
+                            {/* Content Card */}
+                            <div className={`w-full md:w-5/12 ml-6 md:ml-0 ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8 md:text-right'
+                                }`}>
+                                <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 dark:border-gray-700">
+                                    <div className={`flex items-center mb-2 ${index % 2 !== 0 ? 'md:justify-end' : ''}`}>
+                                        <Briefcase size={18} className="text-blue-600 dark:text-blue-400 mr-2" />
+                                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.company}</h3>
+                                    </div>
+                                    <h4 className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2">{exp.role}</h4>
+                                    <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full mb-4">
+                                        {exp.period}
+                                    </span>
+                                    <p className="text-gray-600 dark:text-gray-300">{exp.description}</p>
+                                </div>
+                            </div>
+
+                            {/* Empty space for the other side of the flex container */}
+                            <div className="md:w-5/12"></div>
+                        </motion.div>
+                    ))}
+                </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Experience;
